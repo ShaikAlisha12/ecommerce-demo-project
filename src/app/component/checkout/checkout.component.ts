@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from 'src/app/service/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -16,9 +17,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export default class CheckoutComponent implements OnInit {
   checkoutForm: any;
-  constructor(private formbuilder: FormBuilder, private router: Router) {
-    checkoutForm: FormGroup;
-  }
+  constructor(
+    private formbuilder: FormBuilder,
+    private router: Router,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     this.checkoutForm = this.formbuilder.group({
@@ -32,6 +35,7 @@ export default class CheckoutComponent implements OnInit {
   }
   onsubmit() {
     alert('Your order has been placed');
+    this.cartService.removeAllCart();
     this.router.navigateByUrl('/');
   }
 
